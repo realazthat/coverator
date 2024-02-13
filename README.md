@@ -39,8 +39,7 @@ Workflow is:
    <div><img width="256px" src="assets/bn-cover-menu.png" />
    <img height="128px" src="assets/bn-review-book-summary.png" /></div>
 
-3. This
-   template is for the "**Upload Full Cover File**" option. So click that.
+3. This template is for the "**Upload Full Cover File**" option. So click that.
    <div><img width="256px" src="assets/bn-upload.png" /></div>
 
 4. Next, you should see a page titled "**How To Format Your Cover File**". Copy
