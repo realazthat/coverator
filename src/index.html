@@ -3,10 +3,57 @@
   <head>
     <title>Coverator, The Cover Template Generator</title>
     <meta charset="UTF-8" />
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+    <script>
+      function CopyToClipboard(text, iconId) {
+        navigator.clipboard.writeText(text).then(() => {
+          var copyIconElement = document.getElementById(iconId);
+          copyIconElement.classList.remove('la-copy');
+          copyIconElement.classList.add('la-check');
+          setTimeout(() => { 
+            copyIconElement.classList.remove('la-check');
+            copyIconElement.classList.add('la-copy');
+          }, 2000);
+        }).catch(err => {
+          console.error('Failed to copy: ', err);
+        });
+      }              
+    </script>
   </head>
-
   <body style="box-sizing: border-box; height: 100%;">
-    <h1>Coverator, The Cover Template Generator</h1>
+    <h1>
+      Coverator, The Cover Template Generator
+      <a href="https://github.com/realazthat/coverator" target="_blank"><i class="lab la-github"></i></a>
+    </h1>
+    
+    <div style="float: right; width: 512px;">
+      <div class="links-grid">
+        <div>
+          <span style="font-weight: bold"><i class="lab la-github"></i>github:</span>
+          <span>
+            <a onclick="CopyToClipboard('https://github.com/realazthat/coverator', 'github-copy-icon')">
+              <i id="github-copy-icon" class="las la-copy"></i>
+            </a>
+          </span>
+          <span>
+            <a href="https://github.com/realazthat/coverator" target="_blank">github.com/realazthat/coverator</a>
+          </span>
+        </div>
+        <div>
+          <span><i class="lab la-monero"></i>Monero:</span>
+          <span>
+            <a onclick="CopyToClipboard('89z3QtAM4oiSpj1k6s7z334WvH5ALMc8yiKoEwQqUrWzRvkc8nKd8hJLVZVk6gjcVk9rSCqWxgyDgEq9YKSpQyFRMKodvAG', 'monero-copy-icon')">
+              <i id="monero-copy-icon" class="las la-copy"></i>
+            </a>
+          </span>
+          <span style="font-size: 4px">
+            <a href="monero:89z3QtAM4oiSpj1k6s7z334WvH5ALMc8yiKoEwQqUrWzRvkc8nKd8hJLVZVk6gjcVk9rSCqWxgyDgEq9YKSpQyFRMKodvAG">
+              monero:89z3QtAM4oiSpj1k6s7z334WvH5ALMc8yiKoEwQqUrWzRvkc8nKd8hJLVZVk6gjcVk9rSCqWxgyDgEq9YKSpQyFRMKodvAG
+            </a>
+          </span>
+        </div>
+      </div>
+    </div>
     <div style="display: flex; flex-flow: column; height: 100%;">
       <table id="input-table" style="flex: 0 1 auto;">
         <tbody>
