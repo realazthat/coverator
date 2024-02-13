@@ -6,7 +6,9 @@
     "start": "parcel serve src/index.html --public-url /coverator/ --no-cache --dist-dir dist/coverator",
     "build": "parcel build src/index.html --public-url /coverator/ --no-cache --dist-dir dist/coverator",
     "serve": "serve dist/",
-    "format": "semistandard --fix --ignore 'dist/*'",
+    "format:js": "semistandard --fix --ignore 'dist/*'",
+    "format:md": "prettier --write **/*.md",
+    "format": "npm run format:js && npm run format:md",
     "deploy": "gh-pages -d dist/coverator -b gh-pages"
   },
   "dependencies": {
@@ -24,9 +26,11 @@
     "assert": "^2.1.0",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
+    "gh-pages": "^6.1.1",
     "parcel": "^2.11.0",
     "parcel-reporter-static-files-copy": "^1.5.3",
     "path-browserify": "^1.0.1",
+    "prettier": "^3.2.5",
     "process": "^0.11.10",
     "semistandard": "^17.0.0",
     "serve": "^14.2.1",
