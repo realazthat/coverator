@@ -1,7 +1,7 @@
 {
   "name": "coverator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cover Template Generator for Barnes and Noble Press",
   "scripts": {
     "start": "parcel serve src/index.html --public-url /coverator/ --no-cache --dist-dir dist/coverator",
     "build": "parcel build src/index.html --public-url /coverator/ --no-cache --dist-dir dist/coverator",
