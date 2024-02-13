@@ -39,14 +39,14 @@ Workflow is:
    <div style=""><img width="256px" src="assets/bn-cover-menu.png" />
    <img style="" height="128px" src="assets/bn-review-book-summary.png" /></div>
 
-3. <img style="float: right" width="256px" src="assets/bn-upload.png" /> This
+3. This
    template is for the "**Upload Full Cover File**" option. So click that.
+   <img style="" width="256px" src="assets/bn-upload.png" />
 
 4. Next, you should see a page titled "**How To Format Your Cover File**". Copy
    the various lengths over the the **coverator** equivalent input boxes at
    [realazthat.github.io/coverator](https://realazthat.github.io/coverator).
-   <img height="128px" src="assets/bn-format.png">
-   <img width="256px" src="assets/coverator.png">
+   <img height="128px" src="assets/bn-format.png"> <img width="256px" src="assets/coverator.png">
 
 ## Running Locally
 
