@@ -1,0 +1,362 @@
+
+{% set bleedLight = "#f7dfdc" %}
+{% set bleedDark = "#c1210f" %}
+{% set marginLight = "#d2e8f1" %}
+{% set marginDark = "#4c9cc6" %}
+{% set barcodeLight = "#ffffff" %}
+{% set barcodeDark = "#000000" %}
+{% set barcodeBorderColor = "#ff5a00" %}
+{% set printableAreaLight = "#f9f8f4" %}
+{% set printableAreaDark = "#a9a8a4" %}
+{% set fullMeasurementColor = "#7b0f71" %}
+{% set spineMeasurementDark = "#f600ff" %}
+{% set halfCoverMeasurementColor = "#5bcc65" %}
+{% set coverBorderColor = "#00000044" %}
+
+
+<!-- DONE: Go through everything and get rid of rects-as-lines  -->
+<!-- TODO: Reorder x1 x2 y1 y2 to x1 y1 x2 y2  -->
+<!-- TODO: Abstract "top", "bottom", "left", 'right" into for loops -->
+<!-- TODO: Make vertical measurement text: vertical -->
+<!-- DONE: Parameterize all the color values -->
+<!-- TODO: Use tails for tails -->
+<!-- DONE: Use tails or arrows for everything -->
+<!-- TODO: Dashed line for cover border -->
+<!-- TODO: Rename coverWidth vs backCoverWidth -->
+<!-- TODO: Get rid of all % -->
+<!-- TODO: Double check all calc() calls to see if they are necessary -->
+<!-- TODO: Get Save PDF working -->
+<!-- TODO: Get Save SVG working -->
+<!-- TODO: Use good colors on html index page -->
+<!-- TODO: Verify colors against html of B&N page -->
+<!-- TODO: Show screenshot on index page -->
+<!-- TODO: Render miniature version -->
+
+<svg xmlns="http://www.w3.org/2000/svg"
+  width="{{ fullWidth }}in" height="{{ fullHeight }}in">
+  <style>
+    text {
+      text-rendering: geometricPrecision;
+    }
+  </style>
+  <!-- bleed section -->
+  <rect x="0" y="0" width="100%" height="100%"
+    style="fill:{{ bleedLight }};" />
+  <text x="1em" y="1em" style="stroke:{{ bleedDark }};">Bleed</text>
+  
+  
+  <!-- margin section -->
+  <svg x="{{ bleed }}in" y="{{ bleed }}in"
+      width="{{ fullWidth - 2 * bleed }}in" height="{{ fullHeight - 2 * bleed }}in">
+    <rect x="0" y="0" width="100%" height="100%"
+      style="fill:{{ marginLight }};" />
+    <text x="0" y="1em" style="stroke:{{ marginDark }};">Margin</text>
+  </svg>
+  
+  {% set backCoverWidth = coverWidth - margin - spineMargin - bleed %}
+  {% set backCoverHeight = fullHeight - 2*(margin+bleed) %}
+  {% set backCoverRight = coverWidth - spineMargin %}
+  {% set backCoverBottom = backCoverHeight + bleed + margin %}
+  <!-- back cover section -->
+  <svg x="{{ bleed + margin }}in" y="{{ bleed + margin }}in"
+    width="{{ backCoverWidth }}in" height="{{ backCoverHeight }}in">
+    <rect x="0" y="0" width="100%" height="100%"
+      style="fill: {{ printableAreaLight }};
+      stroke: {{ coverBorderColor }}; stroke-dasharray: 10 10; stroke-width: 3;" />
+
+    <text x="0" y="1em" style="stroke:{{ printableAreaDark }};">Back Cover</text>
+      
+  </svg>
+
+  <!-- barcode section -->
+  <svg x="{{ backCoverRight - barcodeWidth }}in" y="{{ backCoverBottom - barcodeHeight }}in"
+    width="{{ barcodeWidth }}in" height="{{ barcodeHeight }}in">
+    <rect x="0" y="0" width="100%" height="100%"
+      style="fill:{{ barcodeLight }}; stroke:{{ barcodeBorderColor }}; stroke-width: 2px;" />
+    <text x="0" y="1em" style="stroke:{{ barcodeDark }};">Barcode</text>
+  </svg>
+
+  <!-- spine section -->
+  <svg x="{{ coverWidth }}in" y="{{ bleed }}in"
+    width="{{ spineWidth }}in" height="{{ fullHeight - (bleed) * 2 }}in">
+    <rect x="0" y="0" width="100%" height="100%"
+      style="fill:{{ printableAreaLight }};" />
+    <text x="50%" y="1em" text-anchor="middle" style="stroke:{{ printableAreaDark }};">Spine</text>
+  </svg>
+
+  <!-- front cover section -->
+  <svg x="{{ coverWidth + spineWidth + spineMargin }}in" y="{{ bleed + margin }}in"
+    width="{{ backCoverWidth }}in" height="{{ backCoverHeight }}in">
+    <rect x="0" y="0" width="100%" height="100%"
+      style="fill:{{ printableAreaLight }};
+      stroke: {{ coverBorderColor }}; stroke-dasharray: 10 10; stroke-width: 3;" />
+    <text x="0" y="1em" style="stroke:{{ printableAreaDark }};">Front Cover</text>
+  </svg>
+    
+
+  <defs>
+
+    {% macro markerArrow(baseName, fill) %}
+    <marker id="{{ baseName }}-right" viewBox="0 0 13 10" refX="10" refY="5" markerWidth="3.5" markerHeight="3.5" orient="0">
+        <path d="M 0 0  C 0 0, 3 5, 0 10   L 0 10  L 13 5" fill="{{ fill }}"/>
+    </marker>
+    <marker id="{{ baseName }}-left" viewBox="0 0 13 10" refX="10" refY="5" markerWidth="3.5" markerHeight="3.5" orient="180">
+        <path d="M 0 0  C 0 0, 3 5, 0 10   L 0 10  L 13 5" fill="{{ fill }}"/>
+    </marker>
+    <marker id="{{ baseName }}-up" viewBox="0 0 13 10" refX="10" refY="5" markerWidth="3.5" markerHeight="3.5" orient="270">
+        <path d="M 0 0  C 0 0, 3 5, 0 10   L 0 10  L 13 5" fill="{{ fill }}"/>
+    </marker>
+    <marker id="{{ baseName }}-down" viewBox="0 0 13 10" refX="10" refY="5" markerWidth="3.5" markerHeight="3.5" orient="90">
+        <path d="M 0 0  C 0 0, 3 5, 0 10   L 0 10  L 13 5" fill="{{ fill }}"/>
+    </marker>
+    {% endmacro %}
+
+
+    {{ markerArrow(baseName="green-arrow", fill=halfCoverMeasurementColor) }}
+    {{ markerArrow(baseName="purple-arrow", fill=fullMeasurementColor) }}
+    {{ markerArrow(baseName="spine-arrow", fill=spineMeasurementDark) }}
+    {{ markerArrow(baseName="blue-arrow", fill=marginDark) }}
+    {{ markerArrow(baseName="margin-arrow", fill=marginDark) }}
+    {{ markerArrow(baseName="bleed-arrow", fill=bleedDark) }}
+
+  </defs>
+
+
+  <!-- DO NOT SUBMIT: Surgery  -->
+  <!-- Horizontal measurements -->
+
+
+  {% macro horizontalArrows(baseName, baseArrowName, color, yInches, x0Inches, x1Inches, literal, literalX0Inches) %}
+  <svg x="{{ x0Inches }}" y="{{ yInches - 1 }}in" style="overflow: visible;">
+    {% set literalWidthEM = literal | string | length %}
+    {% set halfLiteralWidthEM = literalWidthEM / 2 %}
+    <defs>
+      <mask id="{{ baseName }}-mask" maskUnits="userSpaceOnUse" x="0" y="-50%" width="100%" height="100%" >
+          <rect x="0" y="-50%" width="100%" height="100%" fill="white"/>
+          <rect x="{{ literalX0Inches }}in" y="-50%" width="{{ literalWidthEM }}em" height="100%" fill="black" />
+      </mask>
+    </defs>
+    <line 
+      x1="1px" y1="1in" x2="{{ x1Inches }}in" y2="1in"
+      stroke="{{ color }}" stroke-width="2px"
+      mask="url(#{{ baseName }}-mask)"
+      style="overflow: visible;"
+      marker-start="url(#{{ baseArrowName }}-left)" marker-end="url(#{{ baseArrowName }}-right)" />
+    <svg x="{{ literalX0Inches }}in">
+      <text x="{{ halfLiteralWidthEM }}em" y="1in"
+        style="stroke:{{ color }}; alignment-baseline:middle; overflow: visible;"
+        text-anchor="middle">
+      {{ literal }}"
+      </text>
+    </svg>
+  </svg>
+  {% endmacro %}
+
+  <!-- measuring purple fullWidth horizontally across nearly  the entire width of
+  the book cover -->
+  {% set horizontalFullMeasurementY = bleed + margin + backCoverHeight * (2/20) %}
+  {% set horizontalLeftCoverMeasurementY = bleed + margin + backCoverHeight * (4/20) %}
+  {{ horizontalArrows(baseName='FullWidthLine',
+                      baseArrowName='purple-arrow',
+                      color=fullMeasurementColor,
+                      x0Inches='0',
+                      x1Inches=fullWidth,
+                      yInches=horizontalFullMeasurementY,
+                      literal=fullWidthLiteral,
+                      literalX0Inches=0.30 * fullWidth) }}
+
+  <!-- measuring green coverWidth on back cover (left), horizontally across nearly
+  the entire width of the back cover -->
+  {{ horizontalArrows(baseName='CoverWidthLine',
+                      baseArrowName='green-arrow',
+                      color=halfCoverMeasurementColor,
+                      x0Inches=0,
+                      x1Inches=coverWidth,
+                      yInches=horizontalLeftCoverMeasurementY,
+                      literal=coverWidthLiteral,
+                      literalX0Inches=0.23 * fullWidth) }}
+
+
+  {% macro verticalArrows(baseName, baseArrowName, color, xInches, y0Inches, y1Inches, literal, literalY0Inches) %}
+  <svg x="{{ xInches - 1}}in" y="{{ y0Inches }}in" style="overflow: visible;">
+    <defs>
+      <mask id="{{ baseName }}-mask" maskUnits="userSpaceOnUse" x="-50%" y="0" width="100%" height="100%" >
+        <rect x="-50%" y="0" width="100%" height="100%" fill="white"/>
+        <rect x="-50%" y="{{ literalY0Inches }}in" width="100%" height="4em" fill="black" />
+      </mask>
+    </defs>
+    <line 
+      x1="1in" y1="1px" x2="1in" y2="{{ fullHeight }}in"
+      stroke="{{ color }}" stroke-width="2px"
+      mask="url(#{{ baseName }}-mask)"
+      marker-start="url(#{{ baseArrowName }}-up)" marker-end="url(#{{ baseArrowName }}-down)" />
+    <svg x="0" y="{{ literalY0Inches }}in">
+      <text x="1in"
+        y="2em" style="stroke:{{ color }}; alignment-baseline:middle"
+        text-anchor="middle">
+        {{ literal }}"
+      </text>
+    </svg>
+  </svg>
+  {% endmacro %}
+
+  <!-- up down purple line with full hight -->
+  {{ verticalArrows(baseName='CoverHeightLine',
+                      baseArrowName='purple-arrow',
+                      color=fullMeasurementColor,
+                      y0Inches=0,
+                      y1Inches=fullHeight,
+                      xInches=margin + bleed + backCoverWidth * (3/16),
+                      literal=fullHeightLiteral,
+                      literalY0Inches=fullHeight / 2) }}
+
+
+  {% macro verticalMetric(baseArrowName, color, x0Inches, y0Inches, lengthInches, literal) %}
+  <svg x="{{ x0Inches - 1 }}in" y="{{ y0Inches }}in">
+    <line 
+      x1="1in" y1="0px" x2="1in" y2="{{ lengthInches }}in"
+      stroke="{{ color }}" stroke-width="3px"
+      marker-start="url(#{{ baseArrowName }}-up)"
+      marker-end="url(#{{ baseArrowName }}-down)" 
+      />
+    <svg x="1in">
+      <text x="1em" y="{{ lengthInches / 2 }}in"
+        style="stroke:{{ color }}; alignment-baseline:middle"
+        text-anchor="start">{{ literal }}"</text>
+    </svg>
+  </svg>
+  {% endmacro %}
+
+  {% for cover in ['back', 'front'] %}
+    {% if cover == 'back' %}
+      {% set verticalBleedMeasurementX = bleed + margin + backCoverWidth * (8 / 16) %}
+      {% set verticalMarginMeasurementX = bleed + margin + backCoverWidth * (7 / 16) %}
+    {% else %}
+      {% set verticalBleedMeasurementX = bleed + margin + backCoverWidth * (8 / 16) + coverWidth + spineWidth %}
+      {% set verticalMarginMeasurementX = bleed + margin + backCoverWidth * (9 / 16) + coverWidth + spineWidth %}
+    {% endif %}
+
+    {% for toporbottom in ['top', 'bottom'] %}
+      {% if toporbottom == 'top' %}
+        {% set verticalBleedMeasurementY = 0 %}
+        {% set verticalMarginMeasurementY = bleed %}
+      {% else %}
+        {% set verticalBleedMeasurementY = fullHeight - bleed %}
+        {% set verticalMarginMeasurementY = fullHeight - bleed - margin %}
+      {% endif %}
+
+      <!-- measuring vertical bleed on {{ toporbottom }}-->
+      {{ verticalMetric(baseArrowName='bleed-arrow',
+                        color=bleedDark,
+                        x0Inches=verticalBleedMeasurementX,
+                        y0Inches=verticalBleedMeasurementY,
+                        lengthInches=bleed,
+                        literal=bleedLiteral) }}
+      <!-- measuring vertical margin on {{ toporbottom }}-->
+      {{ verticalMetric(baseArrowName='margin-arrow',
+                        color=marginDark,
+                        x0Inches=verticalMarginMeasurementX,
+                        y0Inches=verticalMarginMeasurementY,
+                        lengthInches=margin,
+                        literal=marginLiteral) }}
+    {% endfor %}
+  {% endfor %}
+
+
+  {% macro horizontalMetric(baseArrowName, color, x0Inches, y0Inches, lengthInches, literal) %}
+  <svg x="{{ x0Inches - 1 }}in" y="{{ y0Inches - 1 }}in" style="overflow: visible;">
+    <line 
+      x1="1in"  y1="1in" x2="{{ lengthInches + 1 }}in" y2="1in"
+      style="overflow: visible;"
+      stroke="{{ color }}" stroke-width="3px"
+      marker-start="url(#{{ baseArrowName }}-left)"
+      marker-end="url(#{{ baseArrowName }}-right)" 
+      />
+    <svg x="1in" y="1in" style="overflow: visible;">
+      <text x="{{ lengthInches / 2 }}in" y="-1em"
+       
+        style="stroke:{{ color }}; alignment-baseline:middle; overflow: visible;"
+        text-anchor="middle">{{ literal }}"</text>
+    </svg>
+  </svg>
+  {% endmacro %}
+
+
+  {% for bleedSide in ['left', 'right'] %}
+    {% set horizontalBleedX = 0 if bleedSide == 'left' else (fullWidth - bleed) %}
+
+    <!-- measuring bleed on {{ bleedSide }} -->
+    {{ horizontalMetric(baseArrowName='bleed-arrow',
+                        color=bleedDark,
+                        x0Inches=horizontalBleedX,
+                        y0Inches=fullHeight * (8/16),
+                        lengthInches=bleed,
+                        literal=bleedLiteral) }}
+
+  {% endfor %}
+  {% for marginSide in ['far-left', 'spine-left', 'spine-right', 'far-right'] %}
+    {% if marginSide == 'far-left' %}
+      {% set horizontalMarginX = bleed %}
+      {% set marginWidth = margin %}
+      {% set marginWidthLiteral = marginLiteral %}
+    {% elif marginSide == 'spine-left' %}
+      {% set horizontalMarginX = backCoverRight %}
+      {% set marginWidth = spineMargin %}
+      {% set marginWidthLiteral = spineMarginLiteral %}
+    {% elif marginSide == 'spine-right' %}
+      {% set horizontalMarginX = backCoverRight + spineMargin + spineWidth %}
+      {% set marginWidth = spineMargin %}
+      {% set marginWidthLiteral = spineMarginLiteral %}
+    {% elif marginSide == 'far-right' %}
+      {% set horizontalMarginX = fullWidth - bleed - margin %}
+      {% set marginWidth = margin %}
+      {% set marginWidthLiteral = marginLiteral %}
+    {% endif %}
+
+
+    <!-- measuring margin on {{ marginSide }} -->
+    {{ horizontalMetric(baseArrowName='margin-arrow',
+                        color=marginDark,
+                        x0Inches=horizontalMarginX,
+                        y0Inches=fullHeight * (9/16),
+                        lengthInches=marginWidth,
+                        literal=marginWidthLiteral) }}
+
+  {% endfor %}
+
+
+
+  
+  {% set spineX = backCoverRight + spineMargin %}
+  <!-- measuring spine -->
+  {{ horizontalMetric(baseArrowName='spine-arrow',
+                      color=spineMeasurementDark,
+                      x0Inches=spineX,
+                      y0Inches=fullHeight * 0.30,
+                      lengthInches=spineWidth,
+                      literal=spineWidthLiteral) }}
+
+  <!-- barcode annotation -->
+  {% set barcodeX = backCoverRight - barcodeWidth %}
+  {% set barcodeY = backCoverBottom - barcodeHeight %}
+  {# halfway across the cover #}
+  {% set barcodedAnnotationX = bleed + margin + backCoverWidth * (3 / 4) %}
+  {# 3/4 down the cover #}
+  {% set barcodedAnnotationY = bleed + margin + backCoverHeight * (3 / 4) %}
+  <svg x="{{ barcodedAnnotationX - 1}}in"  y="{{ barcodedAnnotationY-1}}in">
+    <text x="1in" y="1in"
+      text-anchor="end" 
+      style="stroke:{{ barcodeBorderColor }}; alignment-baseline:middle">
+        {{ barcodeWidthLiteral }}" x {{ barcodeHeightLiteral }}"
+    </text>
+    <svg x="1in" y="1in">
+      <line 
+        x1="0.5em" 
+        y1="0.5em"
+        x2="{{ barcodeX + (barcodeWidth/2) - barcodedAnnotationX}}in"
+        y2="{{ barcodeY + (barcodeHeight/2) - barcodedAnnotationY}}in"
+        stroke="{{ barcodeBorderColor }}" stroke-width="2px"
+        />
+    </svg>
+  </svg>
+</svg>

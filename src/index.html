@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html style="box-sizing: border-box; height: 100%;">
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body style="box-sizing: border-box; height: 100%;">
+    <div style="display: flex; flex-flow: column; height: 100%;">
+      <table id="input-table" style="flex: 0 1 auto;">
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Value</th>
+          </tr>
+          <tr style="color: #7b0f71;">
+            <td>Full cover height</td>
+            <td>
+              <input id="fullHeight" type="number" min="0" value="11.5" /> in
+            </td>
+          </tr>
+          <tr style="color: #7b0f71;">
+            <td>Full cover width</td>
+            <td>
+              <input id="fullWidth" type="number" min="0" value="17.139" /> in
+            </td>
+          </tr>
+          <tr style="color: #5bcc65;">
+            <td>Cover width</td>
+            <td>
+              <input id="coverWidth" type="number" min="0" value="7.944" /> in
+            </td>
+          </tr>
+          <tr style="color: #79c4e5;">
+            <td>Margin</td>
+            <td>
+              <input id="margin" type="number" min="0" value="0.25" d /> in
+            </td>
+          </tr>
+          <tr style="color: #ec00ff;">
+            <td>Spine</td>
+            <td>
+              <input id="spineWidth" type="number" min="0" value="1.25" /> in
+            </td>
+          </tr>
+          <tr style="color: #ea7c25;">
+            <td>Spine Margin</td>
+            <td>
+              <input id="spineMargin" type="number" min="0" value="0.75" /> in
+            </td>
+          </tr>
+          <tr style="color: #c11883;">
+            <td>Bleed</td>
+            <td><input id="bleed" type="number" min="0" value="0.625" /> in</td>
+          </tr>
+          <tr style="color: #ff5a00;">
+            <td>Barcode Width</td>
+            <td>
+              <input id="barcodeWidth" type="number" min="0" value="1.5" /> in
+            </td>
+          </tr>
+          <tr style="color: #ff5a00;">
+            <td>Barcode Height</td>
+            <td>
+              <input id="barcodeHeight" type="number" min="0" value="1.125" />
+              in
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin: 2em; flex: 0 1 auto;">
+        <button id="compute" disabled="disabled">Compute</button>
+        <button id="save-pdf" disabled="disabled">Save PDF</button>
+        <button id="save-svg" disabled="disabled">Save SVG</button>
+        <button id="copy-svg" disabled="disabled">Copy SVG</button>
+        <!--
+          <button id="special" disabled="disabled">Special</button>
+        -->
+        <span id="loading">Loading ...</span>
+      </div>
+      <div style="flex: 1;">
+        <table style="width: 100%; height: 100%;">
+          <tr style="width: 100%; height: 1em;">
+            <th>SVG</th>
+            <th>PDF</th>
+          </tr>
+          <tr style="width: 100%;">
+            <td style="width: 50%;">
+              <iframe
+                id="lhs-display-frame"
+                width="95%"
+                height="95%"
+                src="about:blank"
+              ></iframe>
+            </td>
+            <td style="width: 50%;">
+              <iframe
+                id="rhs-display-frame"
+                width="95%"
+                height="95%"
+                src="about:blank"
+              ></iframe>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div>
+        <textarea
+          id="copy-text"
+          style="position: absolute; left: -1000px; top: -1000px;"
+        ></textarea>
+      </div>
+    </div>
+    <script src="index.js" type="module"></script>
+  </body>
+</html>
