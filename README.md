@@ -36,17 +36,17 @@ Workflow is:
    type of pages etc.
 2. Navigate to the **How Do You Want to Upload Your Cover File?** page. You can
    get here a few ways.
-   <div style=""><img width="256px" src="assets/bn-cover-menu.png" />
-   <img style="" height="128px" src="assets/bn-review-book-summary.png" /></div>
+   <div><img width="256px" src="assets/bn-cover-menu.png" />
+   <img height="128px" src="assets/bn-review-book-summary.png" /></div>
 
 3. This
    template is for the "**Upload Full Cover File**" option. So click that.
-   <img style="" width="256px" src="assets/bn-upload.png" />
+   <div><img width="256px" src="assets/bn-upload.png" /></div>
 
 4. Next, you should see a page titled "**How To Format Your Cover File**". Copy
    the various lengths over the the **coverator** equivalent input boxes at
    [realazthat.github.io/coverator](https://realazthat.github.io/coverator).
-   <img height="128px" src="assets/bn-format.png"> <img width="256px" src="assets/coverator.png">
+   <div><img height="128px" src="assets/bn-format.png"> <img width="256px" src="assets/coverator.png"></div>
 
 ## Running Locally
 
