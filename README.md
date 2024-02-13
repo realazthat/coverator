@@ -1,20 +1,24 @@
 # coverator
 
-Cover Template Generator for Barnes and Noble Press
+**Cover Template Generator for Barnes and Noble Press**
+
+<img width="512px" src="assets/coverator.png" />
 
 Use here:
 [realazthat.github.io/coverator](https://realazthat.github.io/coverator).
 
 ## What is it?
 
-This is a simple tool to generate a cover template for Barnes and Noble Press.
+This is a simple tool to generate a cover template making book covers for Barnes
+and Noble Press.
+
 It is a simple web page that allows you to enter the dimensions of your book and
-it will generate a template for you to use in your favorite image editor, to
-guide the borders of your cover.
+will generate a template for you to use in your favorite image editor, to guide
+the borders of your cover.
 
-This is what Barnes and Noble Press interface looks like:
+This is what **Barnes and Noble Press interface** looks like:
 
-<img width="512px" src="assets/bn-format.png" />
+<img width="256px" src="assets/bn-format.png" />
 
 This is what **coverator** looks like:
 
@@ -32,8 +36,8 @@ Workflow is:
    type of pages etc.
 2. Navigate to the **How Do You Want to Upload Your Cover File?** page. You can
    get here a few ways.
-   <div style="vertical-align: middle"><img width="256px" src="assets/bn-cover-menu.png" />
-   <img style="" width="256px" src="assets/bn-review-book-summary.png" /></div>
+   <div style=""><img width="256px" src="assets/bn-cover-menu.png" />
+   <img style="" height="128px" src="assets/bn-review-book-summary.png" /></div>
 
 3. <img style="float: right" width="256px" src="assets/bn-upload.png" /> This
    template is for the "**Upload Full Cover File**" option. So click that.
@@ -41,7 +45,7 @@ Workflow is:
 4. Next, you should see a page titled "**How To Format Your Cover File**". Copy
    the various lengths over the the **coverator** equivalent input boxes at
    [realazthat.github.io/coverator](https://realazthat.github.io/coverator).
-   <img width="256px" src="assets/bn-format.png">
+   <img height="128px" src="assets/bn-format.png">
    <img width="256px" src="assets/coverator.png">
 
 ## Running Locally
