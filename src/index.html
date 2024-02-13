@@ -19,6 +19,13 @@
         });
       }              
     </script>
+    <style>
+      .links-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+      }
+    </style>
   </head>
   <body style="box-sizing: border-box; height: 100%;">
     <h1>
@@ -26,7 +33,7 @@
       <a href="https://github.com/realazthat/coverator" target="_blank"><i class="lab la-github"></i></a>
     </h1>
     
-    <div style="float: right; width: 512px;">
+    <fieldset>
       <div class="links-grid">
         <div>
           <span style="font-weight: bold"><i class="lab la-github"></i>github:</span>
@@ -53,7 +60,7 @@
           </span>
         </div>
       </div>
-    </div>
+    </fieldset>
     <div style="display: flex; flex-flow: column; height: 100%;">
       <table id="input-table" style="flex: 0 1 auto;">
         <tbody>
