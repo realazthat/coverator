@@ -60,3 +60,7 @@ npm run build
 npm run serve
 # Navigate to http://localhost:3000/coverator/. Note the trailing slash!
 ```
+
+## Related
+
+- [CoverNice](https://covernice.com/kdp-cover-calculator?utm_source=gh&utm_campaign=realazthat-coverator).
